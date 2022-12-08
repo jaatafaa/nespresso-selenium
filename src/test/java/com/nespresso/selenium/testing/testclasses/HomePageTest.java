@@ -1,2 +1,32 @@
-package com.nespresso.selenium.testing.testclasses;public class HomePageTest {
+package com.nespresso.selenium.testing.testclasses;
+
+import com.nespresso.selenium.testing.pageobjects.HomePage;
+import org.openqa.selenium.By;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.time.Duration;
+
+import static org.junit.Assert.assertTrue;
+
+public class HomePageTest extends BaseClass {
+
+    @Test
+    public void bannerButtonAcceptTest() throws IOException {
+        driver.get(baseUrl);
+        logger.info("Base url "+ baseUrl + " opened");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+
+        assertTrue(driver.findElement(By.id("_evidon-banner-content")).isDisplayed());
+
+        HomePage homePage = new HomePage(driver);
+        homePage.clickAcceptButton();
+        homePage.clickNespressoProfessionnelLink();
+
+        homePage.clickFirstAcheterButtonTexts();
+
+        boolean isBannerDisplayed = driver.findElements(By.id("_evidon-banner-content")).size() < 1;
+        captureScreenshot(driver, "Home Page - Banner button accept");
+        assertTrue(isBannerDisplayed);
+    }
 }

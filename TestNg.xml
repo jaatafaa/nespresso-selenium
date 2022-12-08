@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Green-softs">
+    <listeners>
+        <listener class-name="com.nespresso.selenium.testing.utilities.Reporting" />
+    </listeners>
+
+    <test name="Green Softs Banking Test">
+        <parameter name="browser" value="Chrome" />
+        <classes>
+            <class name="com.nespresso.selenium.testing.testclasses.HomePageTest" />
+            <class name="com.nespresso.selenium.testing.testclasses.LoginPageTest" />
+        </classes>
+    </test>
+</suite>
