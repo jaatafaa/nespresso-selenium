@@ -6,11 +6,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,6 +20,7 @@ import org.testng.annotations.Parameters;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 public class BaseClass {
 
@@ -42,7 +45,12 @@ public class BaseClass {
         } else {
             driver = new ChromeDriver();
         }
-        logger = Logger.getLogger("E-Banking");
+        ChromeOptions options = getChromeOptions();
+        DesiredCapabilities capabilities = getDesiredCapabilities(options);
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+        driver.manage().window().maximize();
+        logger = Logger.getLogger("Nespresso");
         PropertyConfigurator.configure(System.getProperty("user.dir").concat("/log4j.properties"));
     }
 
@@ -57,5 +65,36 @@ public class BaseClass {
         File destionationFile = new File(System.getProperty("user.dir").concat("/screenshots/").concat(testName).concat(".png"));
         FileUtils.copyFile(sourceFile, destionationFile);
         System.out.println("***** Screenshot taken *****");
+    }
+
+    public ChromeOptions getChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        options.addArguments("--headless");
+        options.addArguments("--incognito");
+        options.addArguments("start-maximized");
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
+        return options;
+    }
+
+    public DesiredCapabilities getDesiredCapabilities(ChromeOptions options) {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("UNHANDLED_PROMPT_BEHAVIOUR" ,true);
+        capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
+        capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, true);
+        capabilities.setCapability(InternetExplorerDriver.UNEXPECTED_ALERT_BEHAVIOR, UnexpectedAlertBehaviour.IGNORE);
+        capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+        capabilities.setCapability(InternetExplorerDriver.ENABLE_ELEMENT_CACHE_CLEANUP, true);
+        capabilities.setCapability("nativeEvents", false);
+        capabilities.setCapability("requireWindowFocus", false);
+        capabilities.setCapability("javascriptEnabled", true);
+        capabilities.setCapability("ignoreProtectedModeSettings", true);
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+        return capabilities;
+    }
+
+    public void waitForNSeconds(int seconds) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
     }
 }

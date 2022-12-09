@@ -26,7 +26,7 @@ public class Reporting extends TestListenerAdapter {
     @Override
     public void onStart(ITestContext testContext) {
         String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd.HH.mm.s"));
-        String repertoireName = "Test-Report-".concat(timeStamp).concat(".html");
+        String repertoireName = "nespresso-test-report-".concat(timeStamp).concat(".html");
         htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir").concat("/test-output/").concat(repertoireName));
         htmlReporter.loadXMLConfig(System.getProperty("user.dir").concat("/extent-config.xml"));
 
@@ -34,10 +34,10 @@ public class Reporting extends TestListenerAdapter {
         extentReports.attachReporter(htmlReporter);
         extentReports.setSystemInfo("Host name", "localhost");
         extentReports.setSystemInfo("Environnement", "QA");
-        extentReports.setSystemInfo("User", "Ousmane NGOM");
+        extentReports.setSystemInfo("User", "Douada NDOYE");
 
-        htmlReporter.config().setDocumentTitle("Green-Softs Testing Projects");
-        htmlReporter.config().setReportName("Functional Test Reporting");
+        htmlReporter.config().setDocumentTitle("Nespresso Testing Projects");
+        htmlReporter.config().setReportName("Nespresso Functional Test Reporting");
         htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
         htmlReporter.config().setTheme(Theme.DARK);
     }
