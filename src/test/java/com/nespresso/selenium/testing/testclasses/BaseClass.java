@@ -35,6 +35,11 @@ public class BaseClass {
     @BeforeClass
     @Parameters(value = "browser")
     public void setup(String browser) {
+
+        System.setProperty("webdriver.chrome.driver", "drivers/linux/chromedriver");
+        ChromeOptions options = getChromeOptions();
+        options.addArguments("--headless");
+
         WebDriverManager.chromedriver().setup();
         if (browser.equals(Browser.CHROME.getLabel())) {
             driver = new ChromeDriver();
@@ -45,7 +50,6 @@ public class BaseClass {
         } else {
             driver = new ChromeDriver();
         }
-        ChromeOptions options = getChromeOptions();
         DesiredCapabilities capabilities = getDesiredCapabilities(options);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
@@ -72,6 +76,7 @@ public class BaseClass {
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.addArguments("--headless");
         options.addArguments("--incognito");
+        options.addArguments("disable-gpu");
         options.addArguments("start-maximized");
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
         return options;
