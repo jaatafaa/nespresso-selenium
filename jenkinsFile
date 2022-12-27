@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clean') {
             steps {
                 echo 'Building..'
                 sh "mvn clean -Dbrowser=chrome -Dselenide.browserBinary=/opt/chrome-linux/chrome"
