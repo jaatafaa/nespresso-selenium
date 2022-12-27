@@ -10,7 +10,7 @@ node {
         stage 'Compile'
         sh "mvn clean compile"
         stage 'mvn test'
-        sauce('saucelabs') {
+        sauce('Build') {
             sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
                 sh "mvn clean test -Dbrowser=chrome"
             }
