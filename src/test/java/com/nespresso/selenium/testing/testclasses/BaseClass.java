@@ -36,7 +36,7 @@ public class BaseClass {
     @Parameters(value = "browser")
     public void setup(String browser) {
 
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir").concat("drivers/linux/chromedriver"));
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir").concat("/drivers/linux/chromedriver"));
         ChromeOptions options = getChromeOptions();
         options.addArguments("--headless");
 
