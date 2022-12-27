@@ -18,6 +18,6 @@ node {
     }
 
     stage 'Collecting Results'
-    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
     step([$class: 'SauceOnDemandTestPublisher'])
 }
