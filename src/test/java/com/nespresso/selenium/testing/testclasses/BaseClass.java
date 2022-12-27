@@ -43,7 +43,7 @@ public class BaseClass {
         options.setBinary(CHROME_DRIVER_PATH);
         options.addArguments("--headless");
 
-        WebDriverManager.chromedriver().setup();
+        // WebDriverManager.chromedriver().setup();
         if (browser.equals(Browser.CHROME.getLabel())) {
             driver = new ChromeDriver();
         } else if (browser.equals(Browser.FIREFOX.getLabel())) {
