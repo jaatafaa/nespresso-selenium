@@ -12,23 +12,23 @@ public class LoginPage {
 
     WebDriver driver;
 
-    @FindBy(xpath = "//*[text()='CONNECTEZ-VOUS']")
+    @FindBy(xpath = "/html/body/div[2]/header/div/div[1]/div/div/div/div/div/div[1]/button")
     @CacheLookup
     WebElement authenticationButton;
 
-    @FindBy(xpath = "//*[@id=\"ta-header-username\"]")
+    @FindBy(xpath = "/html/body/div[2]/header/div/div[1]/div/div/div/div/div/div[1]/div/div/div/form/div[1]/div/input")
     @CacheLookup
     WebElement usernameText;
 
-    @FindBy(xpath = "//*[@id=\"ta-header-password\"]")
+    @FindBy(xpath = "/html/body/div[2]/header/div/div[1]/div/div/div/div/div/div[1]/div/div/div/form/div[2]/div/input")
     @CacheLookup
     WebElement passwordText;
 
-    @FindBy(id = "ta-header-remember-me")
+    @FindBy(xpath = "/html/body/div[2]/header/div/div[1]/div/div/div/div/div/div[1]/div/div/div/form/div[3]/div/label/input")
     @CacheLookup
     WebElement rememberMeCheckBox;
 
-    @FindBy(id = "ta-login-form__submit")
+    @FindBy(xpath = "/html/body/div[2]/header/div/div[1]/div/div/div/div/div/div[1]/div/div/div/form/button")
     @CacheLookup
     WebElement loginSubmitButton;
 
@@ -51,6 +51,11 @@ public class LoginPage {
 
     public void clickLoginButton() {
         this.authenticationButton.click();
+    }
+
+    public void fillUserInfos(String username, String password) {
+        this.setUsername(username);
+        this.setPassword(password);
     }
 
     public void clickRememberMeCheckBox() {

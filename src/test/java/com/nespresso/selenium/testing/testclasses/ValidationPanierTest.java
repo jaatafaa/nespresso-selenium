@@ -39,9 +39,15 @@ public class ValidationPanierTest extends BaseClass {
         waitForNSeconds(1);
 
         captureScreenshot(driver, "Validation Panier Test");
-        driver.findElement(By.id("ta-product-details__add-to-bag-button")).click();
+        driver.findElement(By.xpath("/html/body/main/div[7]/div/div[1]/div/div[2]/div[5]/div[1]/div/div/button")).click();
         waitForNSeconds(1);
 
         assertTrue(driver.findElement(By.xpath("//*[text()='Pack Zenius']")).isDisplayed());
+
+        captureScreenshot(driver, "Validation Panier Test");
+        driver.findElement(By.xpath("/html/body/header/div/div[1]/div/div/div/div[2]/div/div[2]/button")).click();
+        waitForNSeconds(1);
+
+        assertTrue(driver.findElement(By.xpath("//*[text()='Machines professionnelles(1)']")).isDisplayed());
     }
 }
