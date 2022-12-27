@@ -32,15 +32,18 @@ public class BaseClass {
 
     public static Logger logger;
 
+    private static final String CHROME_DRIVER_PATH = System.getProperty("user.dir").concat("/drivers/linux/chromedriver");
+
     @BeforeClass
     @Parameters(value = "browser")
     public void setup(String browser) {
 
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir").concat("/drivers/linux/chromedriver"));
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
         ChromeOptions options = getChromeOptions();
+        options.setBinary(CHROME_DRIVER_PATH);
         options.addArguments("--headless");
 
-//        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup();
         if (browser.equals(Browser.CHROME.getLabel())) {
             driver = new ChromeDriver();
         } else if (browser.equals(Browser.FIREFOX.getLabel())) {
@@ -48,7 +51,7 @@ public class BaseClass {
         } else if (browser.equals(Browser.SAFARI.getLabel())) {
             driver = new SafariDriver();
         } else {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
         }
         DesiredCapabilities capabilities = getDesiredCapabilities(options);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -74,6 +77,7 @@ public class BaseClass {
     public ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+        options.setBinary(CHROME_DRIVER_PATH);
         options.addArguments("--headless");
         options.addArguments("--incognito");
         options.addArguments("disable-gpu");
@@ -101,5 +105,17 @@ public class BaseClass {
 
     public void waitForNSeconds(int seconds) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

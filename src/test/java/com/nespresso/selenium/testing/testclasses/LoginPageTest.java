@@ -15,7 +15,7 @@ public class LoginPageTest extends BaseClass {
     public void loginTest() {
         driver.get(baseUrl);
         driver.manage().window().maximize();
-        logger.info("Base url "+ baseUrl + " opened");
+        logger.info("Base url "+ getBaseUrl() + " opened");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 
         HomePage homePage = new HomePage(driver);
@@ -32,7 +32,12 @@ public class LoginPageTest extends BaseClass {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='CONNECTEZ-VOUS']")));
-        // driver.findElement(By.className("LoginDropdown")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='CONNECTEZ-VOUS']")));
+
+        loginPage.fillUserInfos(getUsername(), getPassword());
+        waitForNSeconds(3);
+
+        loginPage.clickLoginButton();
+        waitForNSeconds(3);
     }
 }
