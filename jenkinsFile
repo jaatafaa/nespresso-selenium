@@ -1,23 +1,49 @@
-node {
-    // Mark the code checkout 'stage'....
-    stage 'Checkout develop'
-    // Get some code from a GitHub repository
-    checkout scm
-    // Note: if this is copy and pasted into pipeline script, the following will work while the above handles branches and such
-    git url: 'https://github.com/BestDevendoye/nespresso-selenium.git'
+pipeline {
+    agent any
 
-    docker.image('maven:3.8.6-jdk-8').inside {
-        stage 'Compile'
-        sh "mvn clean compile"
-        stage 'mvn test'
-        sauce('Build') {
-            sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
-                sh "mvn clean test -Dbrowser=chrome"
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                sh "mvn clean install"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                sh "mvn clean install test -Dbrowser=chrome"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+                sh "mvn clean package -Dbrowser=chrome"
             }
         }
     }
-
-    stage 'Collecting Results'
-    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
-    step([$class: 'SauceOnDemandTestPublisher'])
 }
+
+//
+// node {
+//     // Mark the code checkout 'stage'....
+//     stage 'Checkout develop'
+//     // Get some code from a GitHub repository
+//     checkout scm
+//     // Note: if this is copy and pasted into pipeline script, the following will work while the above handles branches and such
+//     git url: 'https://github.com/BestDevendoye/nespresso-selenium.git'
+//
+//     docker.image('maven:3.8.6-jdk-8').inside {
+//         stage 'Compile'
+//         sh "mvn clean compile"
+//         stage 'mvn test'
+//         sauce('saucelabs') {
+//             sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
+//                 sh "mvn clean test -Dbrowser=chrome"
+//             }
+//         }
+//     }
+//
+//     stage 'Collecting Results'
+//     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/*.xml'])
+//     step([$class: 'SauceOnDemandTestPublisher'])
+// }
