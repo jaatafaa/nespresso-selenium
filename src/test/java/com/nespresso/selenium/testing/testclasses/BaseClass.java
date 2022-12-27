@@ -36,11 +36,11 @@ public class BaseClass {
     @Parameters(value = "browser")
     public void setup(String browser) {
 
-        System.setProperty("webdriver.chrome.driver", "drivers/linux/chromedriver");
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir").concat("drivers/linux/chromedriver"));
         ChromeOptions options = getChromeOptions();
         options.addArguments("--headless");
 
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
         if (browser.equals(Browser.CHROME.getLabel())) {
             driver = new ChromeDriver();
         } else if (browser.equals(Browser.FIREFOX.getLabel())) {
