@@ -6,7 +6,7 @@ node {
     // Note: if this is copy and pasted into pipeline script, the following will work while the above handles branches and such
     git url: 'https://github.com/BestDevendoye/nespresso-selenium.git'
 
-    docker.image('maven:3.3.9-jdk-7').inside {
+    docker.image('maven:3.8.6-jdk-8').inside {
         stage 'Compile'
         sh "mvn clean compile"
         stage 'mvn test'
