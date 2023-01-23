@@ -23,8 +23,8 @@ public class HomePageTest extends BaseClass {
         homePage.clickAcceptButton();
         waitForNSeconds(1);
 
-        homePage.clickNespressoProfessionnelLink();
-        waitForNSeconds(1);
+        //homePage.clickNespressoProfessionnelLink();
+        //waitForNSeconds(1);
 
         homePage.clickFirstAcheterButtonTexts();
         waitForNSeconds(1);

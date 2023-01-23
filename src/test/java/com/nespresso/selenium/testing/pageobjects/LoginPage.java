@@ -12,15 +12,15 @@ public class LoginPage {
 
     WebDriver driver;
 
-    @FindBy(xpath = "//*[text()='CONNECTEZ-VOUS']")
+    @FindBy(className = "heading")
     @CacheLookup
     WebElement authenticationButton;
 
-    @FindBy(xpath = "//*[@id=\"ta-header-username\"]")
+    @FindBy(id = "emailField")
     @CacheLookup
     WebElement usernameText;
 
-    @FindBy(xpath = "//*[@id=\"ta-header-password\"]")
+    @FindBy(id = "passwordField")
     @CacheLookup
     WebElement passwordText;
 
@@ -28,7 +28,7 @@ public class LoginPage {
     @CacheLookup
     WebElement rememberMeCheckBox;
 
-    @FindBy(id = "ta-login-form__submit")
+    @FindBy(id = "ta-login-page-login-submit")
     @CacheLookup
     WebElement loginSubmitButton;
 
