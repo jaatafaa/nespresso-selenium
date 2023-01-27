@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 public class AbonnementPage {
     WebDriver driver;
 
-    @FindBy(className = "g_btnBuy")
+    @FindBy(className = "g_h3")
     @CacheLookup
     WebElement addMachineButton;
 

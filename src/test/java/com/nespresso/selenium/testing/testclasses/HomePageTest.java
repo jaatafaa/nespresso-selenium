@@ -13,7 +13,7 @@ public class HomePageTest extends BaseClass {
 
     @Test
     public void bannerButtonAcceptTest() throws IOException {
-        driver.get(baseUrl);
+        driver.get("https://www.nespresso.com/pro/fr/fr/");
         logger.info("Base url "+ baseUrl + " opened");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
 

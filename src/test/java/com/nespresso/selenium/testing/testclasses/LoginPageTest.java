@@ -13,7 +13,7 @@ import java.time.Duration;
 public class LoginPageTest extends BaseClass {
 
     @Test
-    public void loginTest() {
+    public void loginTest() throws InterruptedException {
         driver.get("https://www.nespresso.com/pro/fr/fr/secure/login");
         driver.manage().window().maximize();
         logger.info("url https://www.nespresso.com/pro/fr/fr/secure/login opened");
@@ -31,8 +31,11 @@ public class LoginPageTest extends BaseClass {
         loginPage.setUsername(username);
         loginPage.setPassword(password);
         loginPage.clickSubmit();
+        Thread.sleep(1000);
+        waitForNSeconds(5);
        // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.urlContains("https://www.nespresso.com/pro/fr/fr/"));
         By elem_dynamic = By.className("VisuallyHidden");
         String elementText = driver.findElement(elem_dynamic).getText();
         wait.until(ExpectedConditions.textToBePresentInElement( driver.findElement(elem_dynamic) , elementText));
